@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+{% load django_markdown  %}
+{% load crispy_forms_tags %}
+
+{% block title %}Note list{% endblock title %}
+
+{% block content %}
+
+<h1>Note list</h1>
+<br/>
+<div class="actions">
+<a class="btn btn-info" href="{% url "note-create"   %}"> 
+    Note create
+</a>
+</div>
+<br/>
+
+<div class="search-block">
+{% crispy filter.form %}
+<br/>
+
+</div>
+
+
+{% if not object_list %}
+<p>
+Nothing is found.
+</p>
+{% else %}
+
+        <table class="table">
+            <tr>
+                {% if minus %}
+                <th><a href="?order_by=-sender">Sender</a></th>
+                {% else %}
+                <th><a href="?order_by=sender">Sender</a></th>
+                {% endif %}
+                {% if minus %}
+                <th><a href="?order_by=-text">Text</a></th>
+                {% else %}
+                <th><a href="?order_by=text">Text</a></th>
+                {% endif %}
+                <th></th>
+            </tr>
+
+            {% for object in object_list %}
+            <tr>
+                <td>
+{{object.sender}}
+                </td>
+                <td>
+{{object.text}}
+                </td>
+                <td>
+<div class="actions">
+
+
+
+    <a class="btn btn-primary" href="{% url "note-detail" object.pk %}">Note detail</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="widget-footer bordered">
+            {% include "paginator.html" %}
+        </div>
+
+{% endif %}
+
+{% endblock content %}

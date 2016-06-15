@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+{% load django_markdown  %}
+
+
+
+{% block title %}Note detail{% endblock title %}
+
+{% block content %}
+
+<h2 class="text-center">
+    Note detail
+</h2>
+
+<br/>
+
+<div class="actions">
+<a class="btn btn-warning" href="{% url "note-update"    object.pk   %}"> 
+    Note update
+</a>
+<a class="btn btn-danger" href="{% url "note-delete"    object.pk   %}"> 
+    Note delete
+</a>
+</div>
+<br/>
+
+
+    <div>
+<b>Sender</b>: {{object.sender}}
+    </div>
+    <div>
+<b>Text</b>: {{object.text}}
+    </div>
+
+
+
+
+{% endblock content %}
