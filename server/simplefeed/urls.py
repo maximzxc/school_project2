@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns(
-    '', url(r'^$', RedirectView.as_view(pattern_name="note-list")),
+    '', url(r'^$', RedirectView.as_view(url="/note-list")),
     url(r'', include('apps.core.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -16,11 +16,7 @@ urlpatterns = patterns(
 
 
 if settings.DEBUG:
-    import debug_toolbar
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
-    urlpatterns += patterns('',
-                            url(r'^__debug__/', include(debug_toolbar.urls)),
-                            )

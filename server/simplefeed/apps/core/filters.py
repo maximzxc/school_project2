@@ -1,3 +1,4 @@
+'''
 import django_filters
 import django_select2
 
@@ -60,3 +61,4 @@ class NoteListViewFilter(django_filters.FilterSet):
 # Have to call it clearly to help django_select2 register fields
 UserChoiceField()
 NoteChoiceField()
+'''

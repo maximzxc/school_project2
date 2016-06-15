@@ -6,7 +6,6 @@ from core.models import (
 )
 
 
-from allauth.socialaccount.models import SocialApp, SocialAccount, SocialToken
 # admin.site.unregister(SocialApp)
 # admin.site.unregister(SocialToken)
 # admin.site.unregister(SocialAccount)

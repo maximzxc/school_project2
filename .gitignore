@@ -4,6 +4,9 @@ assets
 media
 # file with secret information
 simplefeed/settings/secret.py
+redis/redis-stable.tar.gz
+redis/redis-stable
+redis/redis-stable/*
 
 
 # General stuff

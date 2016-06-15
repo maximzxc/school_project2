@@ -19,9 +19,6 @@ TEMPLATE_DEBUG = DEBUG
 # EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_USER = "ironcoder-demo"
-SENDGRID_PASSWORD = "123456789a"
 # END EMAIL CONFIGURATION
 
 
@@ -55,6 +52,7 @@ CACHES = {
 # TOOLBAR CONFIGURATION
 # See:
 # http://django-debug-toolbar.readthedocs.org/en/latest/installation.html#explicit-setup
+'''
 if 'debug_toolbar' not in INSTALLED_APPS:
     INSTALLED_APPS += (
         'debug_toolbar',
@@ -63,6 +61,7 @@ if 'debug_toolbar' not in INSTALLED_APPS:
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+'''
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
@@ -72,10 +71,29 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_STORAGE_BUCKET_NAME = 'ironcoder'
-AWS_ACCESS_KEY_ID = 'AKIAJGSRUWD5D4L3MJGQ'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_REDUCED_REDUNDANCY = False
-AWS_QUERYSTRING_AUTH = False
-
 # MEDIA_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+
+DATABASES = {
+   'default' : {
+      'ENGINE' : 'django_mongodb_engine',
+      'NAME' : 'my_database',
+      'HOST': 'mongodb://10.11.0.11,10.11.0.12,10.11.0.13/?replicaSet=rs0',
+   }
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": [
+            "redis://127.0.0.1:6380",
+            "redis://127.0.0.1:6381",
+            "redis://127.0.0.1:6382",
+        ],
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"

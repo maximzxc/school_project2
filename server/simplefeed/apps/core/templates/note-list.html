@@ -18,7 +18,6 @@
 <br/>
 
 <div class="search-block">
-{% crispy filter.form %}
 <br/>
 
 </div>
@@ -32,24 +31,10 @@ Nothing is found.
 
         <table class="table">
             <tr>
-                {% if minus %}
-                <th><a href="?order_by=-sender">Sender</a></th>
-                {% else %}
-                <th><a href="?order_by=sender">Sender</a></th>
-                {% endif %}
-                {% if minus %}
-                <th><a href="?order_by=-text">Text</a></th>
-                {% else %}
-                <th><a href="?order_by=text">Text</a></th>
-                {% endif %}
-                <th></th>
             </tr>
 
             {% for object in object_list %}
             <tr>
-                <td>
-{{object.sender}}
-                </td>
                 <td>
 {{object.text}}
                 </td>

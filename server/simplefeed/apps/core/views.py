@@ -9,7 +9,6 @@ from django.views.generic import (
 
 from pure_pagination.mixins import PaginationMixin
 from braces.views import OrderableListMixin
-from enhanced_cbv.views import ListFilteredView
 from allauth.account.utils import complete_signup
 from allauth.account.app_settings import EMAIL_VERIFICATION
 
@@ -28,13 +27,9 @@ from core.forms import (
 )
 
 
-from core.filters import (
-    NoteListViewFilter,
-)
-
 
 @ForbiddenUser(forbidden_usertypes=[u'AnonymousUser'])
-class NoteListView(PaginationMixin, OrderableListMixin, ListFilteredView):
+class NoteListView(PaginationMixin, ListView):
 
     """Note list view"""
 
@@ -42,9 +37,11 @@ class NoteListView(PaginationMixin, OrderableListMixin, ListFilteredView):
 
     model = Note
     paginate_by = 10
-    orderable_columns = ["sender", "text", ]
+    orderable_columns = ["text", ]
     orderable_columns_default = "-id"
-    filter_set = NoteListViewFilter
+
+    def get_queryset(self):
+        return Note.objects.filter(sender=self.request.user)
 
 
 class NoteDetailView(DetailView):
